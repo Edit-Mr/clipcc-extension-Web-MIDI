@@ -2,5 +2,10 @@
     "em.webmidi.name": "Web MIDI",
     "em.webmidi.description": "Web MIDI",
     "em.webmidi.category": "Web MIDI",
-    "em.webmidi.hello": "say helo"
+    "em.webmidi.start": "Load MIDI",
+    "em.webmidi.available": "Is Web MIDI supported?",
+    "em.webmidi.input": "MIDI input",
+    "em.webmidi.output": "MIDI output",
+    "em.webmidi.receive": "When receiving MIDI",
+    "em.webmidi.data": "Latest received MIDI data"
 }

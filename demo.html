@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>hi</h1>
+    <!-- Div element to display the list of MIDI input and output ports -->
+    <div id="midi-ports"></div>
+    
+    <script>
+      window.addEventListener('load', function() {
+        // Check if the browser supports the Web MIDI API
+        if (navigator.requestMIDIAccess) {
+          // Request access to the MIDI devices
+          navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+          console.log('Web MIDI API is supported by this browser.');
+        } else {
+          console.log('Web MIDI API is not supported by this browser.');
+        }
+      });
+    
+      // This function is called if the request for MIDI access is successful
+      function onMIDISuccess(midi) {
+        console.log('MIDI access granted!');
+    
+        // Get the list of MIDI inputs and outputs
+        var inputs = midi.inputs;
+        var outputs = midi.outputs;
+    
+        // Print the list of inputs and outputs to the console
+        console.log('Inputs:');
+        console.log(inputs);
+        console.log('Outputs:');
+        console.log(outputs);
+    
+        // Add the list of inputs and outputs to the page
+        var midiPortsDiv = document.getElementById('midi-ports');
+        midiPortsDiv.innerHTML = '<h2>MIDI Input Ports:</h2>';
+        inputs.forEach(function(input) {
+          midiPortsDiv.innerHTML += '<p>' + input.name + '</p>';
+    
+          // Add an event listener to the input port to receive MIDI messages
+          input.onmidimessage = function(event) {
+            console.log('Received MIDI message:');
+            console.log(event.data);
+          };
+        });
+        midiPortsDiv.innerHTML += '<h2>MIDI Output Ports:</h2>';
+        outputs.forEach(function(output) {
+          midiPortsDiv.innerHTML += '<p>' + output.name + '</p>';
+        });
+      }
+    
+      // This function is called if the request for MIDI access fails
+      function onMIDIFailure(error) {
+        console.log('MIDI access denied. Error: ' + error.code);
+      }
+    </script>
+    
+    </body>
+</html>
